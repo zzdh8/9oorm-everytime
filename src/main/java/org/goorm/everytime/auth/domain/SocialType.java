@@ -1,4 +1,4 @@
-package org.goorm.everytime.member.domain;
+package org.goorm.everytime.auth.domain;
 
 public enum SocialType {
     GOOGLE("google"),

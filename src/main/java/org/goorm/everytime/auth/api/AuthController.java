@@ -29,7 +29,7 @@ public class AuthController {
             @Parameter(name = "username", description = "아이디", required = true),
             @Parameter(name = "password", description = "비밀번호", required = true)
     })
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public BaseResponse<TokenDto> login(@RequestBody AuthReqDto authReqDto){
         return BaseResponse.success(SuccessCode.USER_LOGIN_SUCCESS, authService.login(authReqDto));
     }

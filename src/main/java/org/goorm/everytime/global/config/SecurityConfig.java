@@ -25,7 +25,7 @@ public class SecurityConfig extends Exception {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
-    private final PrincipalOauth2UserService principalOauth2UserService;
+//    private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,6 +46,7 @@ public class SecurityConfig extends Exception {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/user/profile").authenticated()
                         .requestMatchers("/**").permitAll()
                 )
                 .sessionManagement((session) -> session
@@ -59,12 +60,12 @@ public class SecurityConfig extends Exception {
                                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 )
                 .logout((logout) -> logout
-                        .logoutUrl("/api/logout")
+                        .logoutUrl("/user/logout")
                         .logoutSuccessHandler(customLogoutSuccessHandler)
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(userInfo -> userInfo.userService(principalOauth2UserService))
                 );
+//                .oauth2Login(oauth2 -> oauth2
+//                        .userInfoEndpoint(userInfo -> userInfo.userService(principalOauth2UserService))
+//                );
 
         return http.build();
     }

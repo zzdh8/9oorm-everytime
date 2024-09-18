@@ -1,4 +1,4 @@
-package org.goorm.everytime.member.join.api.dto;
+package org.goorm.everytime.member.api.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;

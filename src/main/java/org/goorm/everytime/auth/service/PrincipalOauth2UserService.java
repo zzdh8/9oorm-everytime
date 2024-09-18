@@ -3,7 +3,7 @@ package org.goorm.everytime.auth.service;
 import lombok.RequiredArgsConstructor;
 import org.goorm.everytime.auth.domain.*;
 import org.goorm.everytime.member.domain.Member;
-import org.goorm.everytime.member.domain.SocialType;
+import org.goorm.everytime.auth.domain.SocialType;
 import org.goorm.everytime.member.repository.MemberRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;

@@ -2,6 +2,7 @@ package org.goorm.everytime.member.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.goorm.everytime.auth.domain.SocialType;
 
 @Entity
 @Getter

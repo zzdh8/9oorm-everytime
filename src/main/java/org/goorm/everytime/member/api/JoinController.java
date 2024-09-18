@@ -1,4 +1,4 @@
-package org.goorm.everytime.member.join.api;
+package org.goorm.everytime.member.api;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,8 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.goorm.everytime.global.common.dto.BaseResponse;
 import org.goorm.everytime.global.common.exception.SuccessCode;
-import org.goorm.everytime.member.join.api.dto.JoinDto;
-import org.goorm.everytime.member.join.service.JoinService;
+import org.goorm.everytime.member.api.dto.JoinDto;
+import org.goorm.everytime.member.service.JoinService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +31,7 @@ public class JoinController {
             @Parameter(name = "universityName", description = "대학교 이름", required = true),
             @Parameter(name = "name", description = "이름", required = true)
     })
-    @PostMapping("/join")
+    @PostMapping("/user/join")
     public BaseResponse join(@Valid @RequestBody JoinDto joinDto) {
         joinService.join(joinDto);
         return BaseResponse.success(SuccessCode.USER_JOIN_SUCCESS);

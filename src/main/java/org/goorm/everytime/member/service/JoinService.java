@@ -1,8 +1,8 @@
-package org.goorm.everytime.member.join.service;
+package org.goorm.everytime.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.goorm.everytime.member.domain.SocialType;
-import org.goorm.everytime.member.join.api.dto.JoinDto;
+import org.goorm.everytime.auth.domain.SocialType;
+import org.goorm.everytime.member.api.dto.JoinDto;
 import org.goorm.everytime.member.domain.Authority;
 import org.goorm.everytime.member.domain.Member;
 import org.goorm.everytime.member.repository.MemberRepository;
