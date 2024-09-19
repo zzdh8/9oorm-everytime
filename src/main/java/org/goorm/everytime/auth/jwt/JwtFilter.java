@@ -25,7 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
             throws IOException, ServletException {
         String jwt = resolveToken(request);
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            if (!request.getRequestURI().equals("/member/refresh")) {
+            if (!request.getRequestURI().equals("/user/refresh")) {
                 Authentication authentication = tokenProvider.getAuthentication(jwt);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

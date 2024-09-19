@@ -5,13 +5,14 @@ import org.goorm.everytime.auth.domain.SocialType;
 import org.goorm.everytime.member.api.dto.JoinDto;
 import org.goorm.everytime.member.domain.Authority;
 import org.goorm.everytime.member.domain.Member;
-import org.goorm.everytime.member.repository.MemberRepository;
+import org.goorm.everytime.member.domain.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class JoinService {
+
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private static final String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$";
