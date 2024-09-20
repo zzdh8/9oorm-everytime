@@ -3,7 +3,7 @@ package org.goorm.everytime.member.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.goorm.everytime.auth.domain.SocialType;
-import org.goorm.everytime.board.comment.Comment;
+import org.goorm.everytime.board.domain.Comment;
 import org.goorm.everytime.board.domain.Post;
 
 import java.util.ArrayList;

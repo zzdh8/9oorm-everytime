@@ -18,7 +18,8 @@ public enum SuccessCode {
     USER_PROFILE_SUCCESS(HttpStatus.OK, "유저 프로필 조회 성공"),
     GET_POSTS_OF_BOARD(HttpStatus.OK, "개별 게시판 글 조회 성공"),
     GET_ALL_BOARD(HttpStatus.OK, "전체 게시판 조회 성공"),
-    ;
+    POST_UPLOADED(HttpStatus.OK, "게시글 업로드 성공"),
+    GET_MY_POSTS(HttpStatus.OK, "내가 쓴 글 조회 성공");
 
     private final HttpStatus httpStatus;
     private final String message;

@@ -1,4 +1,4 @@
-package org.goorm.everytime.board.service;
+package org.goorm.everytime.board.service.util;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -1,18 +1,16 @@
 package org.goorm.everytime.board.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.goorm.everytime.board.comment.Comment;
+
 import org.goorm.everytime.member.domain.Member;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Post {
@@ -47,4 +45,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private Member member;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY)
+    private List<Image> images = new ArrayList<>();
 }

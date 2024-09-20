@@ -1,4 +1,4 @@
-package org.goorm.everytime.board.comment;
+package org.goorm.everytime.board.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
