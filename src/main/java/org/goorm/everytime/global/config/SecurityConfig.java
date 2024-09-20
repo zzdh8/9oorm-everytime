@@ -1,11 +1,12 @@
 package org.goorm.everytime.global.config;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.goorm.everytime.auth.handler.CustomLogoutSuccessHandler;
 import org.goorm.everytime.auth.handler.OAuth2SuccessHandler;
-import org.goorm.everytime.auth.jwt.*;
+import org.goorm.everytime.auth.jwt.JwtAccessDeniedHandler;
+import org.goorm.everytime.auth.jwt.JwtAuthenticationEntryPoint;
+import org.goorm.everytime.auth.jwt.JwtFilter;
+import org.goorm.everytime.auth.jwt.TokenProvider;
 import org.goorm.everytime.auth.service.PrincipalOauth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +14,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+
 import java.util.List;
 
 @Configuration
@@ -63,13 +63,12 @@ public class SecurityConfig extends Exception {
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-//                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .addFilterAfter(new JwtFilter(tokenProvider), OAuth2LoginAuthenticationFilter.class)
-//                .exceptionHandling(
-//                        (exception) -> exception
-//                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                                .accessDeniedHandler(jwtAccessDeniedHandler)
-//                )
+                .exceptionHandling(
+                        (exception) -> exception
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                .accessDeniedHandler(jwtAccessDeniedHandler)
+                )
                 .logout((logout) -> logout
                         .logoutUrl("/user/logout")
                         .logoutSuccessHandler(customLogoutSuccessHandler)

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.goorm.everytime.board.domain.Post;
 import org.goorm.everytime.member.domain.Member;
 
 
