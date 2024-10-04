@@ -18,6 +18,11 @@ spring:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
+    mongodb:
+      database: chat
+      host: localhost
+      port: 27017
+      uri: mongodb://localhost:27017/chatting
   security:
     oauth2:
       client:
@@ -51,6 +56,13 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: method
     path: /docs
+cloud:
+  aws:
+    s3:
+      bucket: ${AWS_BUCKET}
+    region:
+      static: ${AWS_REGION}
+    stack.auto: false
 
 logging:
   level:
