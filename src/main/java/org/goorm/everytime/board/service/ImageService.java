@@ -28,9 +28,9 @@ public class ImageService {
     private String bucket;
     private final AmazonS3Client amazonS3Client;
     private final ImageRepository imageRepository;
-    private final String POST_IMAGE_PATH = "post/";
 
     public void uploadFile(MultipartFile file, Post post) {
+        String POST_IMAGE_PATH = "post/";
         String fileName = POST_IMAGE_PATH + UUID.randomUUID() + "_" + file.getOriginalFilename();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
@@ -41,7 +41,7 @@ public class ImageService {
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             imageRepository.save(Image.builder()
                     .imageUrl(amazonS3Client.getUrl(bucket, fileName).toURI().toURL().toString())
-                    .postId(post.getId())
+                    .post(post)
                     .build());
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException("Failed to upload file to S3", e);

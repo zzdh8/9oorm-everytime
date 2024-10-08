@@ -21,11 +21,6 @@ public class CommentService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
 
-    //내가 쓴 댓글 조회 - 내가 댓글 쓴 게시글 조회
-    public void provideMyComments() {
-
-    }
-
     @Transactional
     public void addComment(CommentAddDto commentAddDto, Long postId,Principal principal) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));

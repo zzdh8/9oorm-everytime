@@ -1,24 +1,22 @@
 package org.goorm.everytime.auth.jwt;
 
 
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.goorm.everytime.auth.api.dto.TokenDto;
+import org.goorm.everytime.auth.service.PrincipalUserDetailsService;
 import org.goorm.everytime.member.domain.Member;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -35,10 +33,12 @@ public class TokenProvider {
     private final long REFRESH_TOKEN_EXPIRE_TIME;
 
     private final SecretKey key;
+    private final PrincipalUserDetailsService principalUserDetailsService;
 
     public TokenProvider(@Value("${JWT_SECRET}") String secretKey,
                          @Value("${ACCESS_TOKEN_EXPIRE}") long accessTokenExpireTime,
-                         @Value("${REFRESH_TOKEN_EXPIRE}") long refreshTokenExpireTime) {
+                         @Value("${REFRESH_TOKEN_EXPIRE}") long refreshTokenExpireTime, PrincipalUserDetailsService principalUserDetailsService) {
+        this.principalUserDetailsService = principalUserDetailsService;
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.ACCESS_TOKEN_EXPIRE_TIME = accessTokenExpireTime;
@@ -111,8 +111,8 @@ public class TokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
-        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+        UserDetails principal = principalUserDetailsService.loadUserByUsername(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(principal, principal.getPassword(), authorities);
     }
 
     public boolean validateToken(String token) {
